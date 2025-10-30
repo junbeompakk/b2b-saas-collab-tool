@@ -42,7 +42,7 @@ public class WebSecurityConfig {
 
         // HTTP 요청에 대한 접근 권한 설정
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/user/**").permitAll() // '/api/user/'로 시작하는 모든 요청은 인증 없이 허용
+                .requestMatchers("/api/user/**", "/api/test/public").permitAll() // '/api/user/'로 시작하는 모든 요청은 인증 없이 허용
                 .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
         );
 
