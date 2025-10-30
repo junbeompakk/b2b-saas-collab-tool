@@ -2,6 +2,7 @@
 
 package com.example.project.config;
 
+import com.example.project.jwt.JwtAuthenticationFilter;
 import com.example.project.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -45,8 +46,8 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
         );
 
-        // TODO: 여기에 JWT 인증 필터를 추가할 예정입니다.
-        // http.addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        // 직접 만든 JWT 인증 필터를 UsernamePasswordAuthenticationFilter 전에 실행하도록 설정
+        http.addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
