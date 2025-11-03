@@ -35,6 +35,13 @@ public class WebSecurityConfig {
         // CSRF(Cross-Site Request Forgery) 설정 비활성화
         http.csrf(AbstractHttpConfigurer::disable);
 
+        // 인증 실패 시 401 Unauthorized 응답을 보내도록 예외 처리 설정
+        http.exceptionHandling(ex ->
+                ex.authenticationEntryPoint((request, response, authException) ->
+                        response.setStatus(401)
+                )
+        );
+
         // JWT 기반 인증/인가를 사용하므로, Session 관리 기능을 STATELESS로 설정
         http.sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
